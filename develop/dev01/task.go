@@ -25,6 +25,7 @@ func main() {
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "NTP error: %v\n", err)
 		os.Exit(1)
+		ch = make(chan int)
 	}
 
 	fmt.Println("Current NTP time:", ntpTime.Format(time.RFC850))

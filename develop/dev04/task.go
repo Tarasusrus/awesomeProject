@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"sort"
+)
+
 /*
 === Поиск анаграмм по словарю ===
 
@@ -18,7 +23,34 @@ package main
 
 Программа должна проходить все тесты. Код должен проходить проверки go vet и golint.
 */
+var dict map[string]string
 
+func dictionarySearchForAnagrams(words []string) map[string]string {
+	dict = make(map[string]string)
+	for _, word := range words {
+		runes := []rune(word)
+		sort.Slice(runes, func(i, j int) bool { return runes[i] < runes[j] })
+		sortedWord := string(runes)
+		dict[sortedWord] = word
+
+	}
+	return dict
+}
 func main() {
+	words := []string{
+		"пятак", "пятка", "тяпка", "листок", "слиток", "столик",
+		"распорка", "карпорас", "поток", "топок", "вотка", "тавок",
+		"простоквашина", "кашинастропов", "винастропкашипро", "боб", "обб",
+		"банка", "набка", "нож", "жон", "карта", "трак", "ракт", "сакр",
+		"дверь", "ревд", "ведр", "дорога", "город", "рогод", "орогд",
+		"кабина", "бакина", "абник", "кибан", "никаб",
+		"плов", "повл", "овпл", "лпов", "вопл",
+		"термин", "метрин", "ринмет", "тимерн", "митрен",
+		"лапа", "пала", "алап", "апал", "паал",
+	}
+	dict = dictionarySearchForAnagrams(words)
+	for key, value := range dict {
+		fmt.Println(key, value)
+	}
 
 }
